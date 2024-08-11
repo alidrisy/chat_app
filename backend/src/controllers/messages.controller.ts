@@ -1,9 +1,14 @@
 import { Request, Response } from 'express';
 
-export const getMessages = (_req: Request, res: Response) => {
-    res.send('Message route');
+export const getMessages = (req: Request, res: Response) => {
+    try {
+        res.send('Messages route');
+
+    } catch (error: any) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
-export const getConversations = (_req: Request, res: Response) => {
+export const getConversations = (req: Request, res: Response) => {
     res.send('Conversation route');
 };
