@@ -49,3 +49,59 @@ export const sendMassege = async (req: Request, res: Response) => {
         res.status(500).json({ error: "Internal server erorr" });
     }
 };
+
+export const getMessages = async (req: Request, res: Response) => {
+    try {
+        const { id: userToChatId } = req.params;
+        const senderId = req.user.id;
+
+        const conversation = await prisma.conversation.findFirst({
+            where: {
+                participantsIds: {
+                    hasEvery: [senderId, userToChatId],
+                },
+            },
+            include: {
+                messages: {
+                    orderBy: {
+                        createdAt: 'asc',
+                    },
+                },
+            },
+        });
+
+        if (!conversation) {
+            return res.status(200).json([]);
+        }
+
+        res.status(200).json(conversation.messages);
+    } catch (error: any) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server erorr" });
+    }
+}
+
+export const getConversations = async (req: Request, res: Response) => {
+    try {
+        const authUserId = req.user.id;
+
+        const users = await prisma.user.findMany({
+            where: {
+                id : {
+                    not: authUserId,
+                },
+            },
+            select: {
+                id: true,
+                username: true,
+                fullName: true,
+                profilePic: true,
+            },
+        });
+        return res.status(200).json(users);
+    } catch (error: any) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server erorr" });
+    }
+}
+
