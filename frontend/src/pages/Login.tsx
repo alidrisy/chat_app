@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useLogin from "../hooks/useLogin";
+import toast from "react-hot-toast";
 
 const Login = () => {
 
@@ -15,19 +16,13 @@ const Login = () => {
 
 		e.preventDefault()
 		if (!inputs.username || !inputs.password) {
-			alert("Please fill in all fields");
-			setInputs({
-				username: "",
-				password: "",
-			})
+			toast.error("All fields are required");
+			
 			return;
 		}
 
 		login(inputs)
-		setInputs({
-			username: "",
-			password: "",
-		})
+		
 	}
 
 	return (
