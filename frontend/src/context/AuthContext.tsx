@@ -2,6 +2,7 @@ import { createContext, Dispatch, SetStateAction, useContext, useEffect, useStat
 
 type AuthUsertype = {
     id: string;
+    fullName: string;
     username: string;
     profilePic: string;
     gender: string;
@@ -28,7 +29,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
                 const res = await fetch('api/auth/me', { credentials: 'include' });
                 const data = await res.json();
                 if (!res.ok) {
-                    throw new Error(data.message);
+                    throw new Error(data.error);
                 }
                 setAuthUser(data);
             } catch (err) {
