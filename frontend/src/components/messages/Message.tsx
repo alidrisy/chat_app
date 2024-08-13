@@ -8,18 +8,18 @@ const Message = ({ message }: { message: MessagesType }) => {
   const fromMe = message?.senderId === authUser?.id;
   const img = fromMe ? authUser?.profilePic : selectedConversation?.profilePic;
   const chatClass = fromMe ? "chat-end" : "chat-start";
-  const shakeClass = true ? "shake" : "";
+  const shakeClass = message.shouldShake ? "shake" : "";
 
   const bubbleBg = fromMe ? "bg-blue-500" : "";
   return (
-    <div className={`chat ${chatClass}`}>
+    <div className={`chat max-w-[580px] ${chatClass}`}>
       <div className="hidden md:block chat-image avatar">
         <div className="w-6 md:w-10 rounded-full">
           <img alt="Tailwind CSS chat bubble component" src={img} />
         </div>
       </div>
       <p
-        className={`chat-bubble text-white break-words ${bubbleBg} ${shakeClass} text-sm md:text-md`}
+        className={`chat-bubble text-white break-words break-all  ${bubbleBg} ${shakeClass} text-sm md:text-md`}
       >
         {message.body}
       </p>

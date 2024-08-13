@@ -9,7 +9,7 @@ const LogoutButton = () => {
 	return (
 		<div className='mt-auto'>
 			{isLoading ? 
-      			<span className="loading loading-spinner loading-xs"></span>
+      			<span className="loading loadaing-spinner " />
 			: <LogOut className='w-6 h-6 text-white cursor-pointer' onClick={logout} />}
 		</div>
 	);

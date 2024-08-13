@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import GenderCheckbox from "../components/GenderCheckbox";
 import { useState } from "react";
 import useSignup from "../hooks/useSignup";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
 
@@ -22,36 +23,25 @@ const SignUp = () => {
 
 		e.preventDefault()
 		if (!inputs.fullName || !inputs.username || !inputs.password || !inputs.confirmPassword || !inputs.gender) {
-			alert("Please fill in all fields");
-			setInputs({
-				fullName: "",
-				username: "",
-				password: "",
-				confirmPassword: "",
-				gender: "",
-			})
+			toast.error("All fields are required");
+			return;
+		}
+
+		if (inputs.username.length < 4) {
+			toast.error("Username must be at least 4 characters");
+			return;
+		}
+
+		if (inputs.password.length < 6) {
+			toast.error("Password must be at least 6 characters");
 			return;
 		}
 
 		if (inputs.password !== inputs.confirmPassword) {
-			alert("Passwords do not match");
-			setInputs({
-				fullName: "",
-				username: "",
-				password: "",
-				confirmPassword: "",
-				gender: "",
-			})
+			toast.error("Passwords do not match");
 			return;
 		}
-		signup(inputs)
-		setInputs({
-			fullName: "",
-			username: "",
-			password: "",
-			confirmPassword: "",
-			gender: "",
-		})
+		signup(inputs, setInputs)
 	}
 
 	
