@@ -16,9 +16,12 @@ export const SocketContextProvider = ({ children }: { children: ReactNode }) => 
     const socketRef = useRef<Socket | null>(null);
     const { authUser, isLoading } = useAuthContext();
 
+    const socketUrl =
+  import.meta.env.MODE === "development" ? "http://localhost:5000" : "/";
+
     useEffect(() => {
         if (authUser && !isLoading) {
-            socketRef.current = io("http://localhost:3000", {
+            socketRef.current = io(socketUrl, {
                 query: {
                     userId: authUser.id,
                 },
