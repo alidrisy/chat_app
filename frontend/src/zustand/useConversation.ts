@@ -12,6 +12,7 @@ export type MessagesType = {
     body: string;
     senderId: string;
     conversationId: string;
+    createdAt: string;
 };
 
 
