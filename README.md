@@ -28,7 +28,7 @@ This is a chat application built using TypeScript, React, and Express.
 - React
 - Express
 - Socket.io
-- MongoDB
+- PostgresSQL
 
 ## Contributing
 
